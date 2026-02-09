@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     app_title: str = 'Сервис сокращения ссылок'
     description: str = 'Это апи сервиса сокращения ссыллок'
-    database_url: str = 'sqlite+sqlite3:./fastapi.db'
+    database_url: str = './fastapi.db'
 
     class Config:
         env_file = '.env'
