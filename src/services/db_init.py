@@ -1,5 +1,8 @@
+import logging
 import sqlite3
 from core.config import settings
+
+logger = logging.getLogger(__name__)
 
 
 def db_init():
@@ -18,10 +21,10 @@ def db_init():
     try:
         cursor.execute(create_table_query)
         conn.commit()
-        print("Таблица 'links' успешно создана или уже существует.")
+        logger.info("Таблица 'links' успешно создана или уже существует.")
 
     except sqlite3.Error as e:
-        print(f"Ошибка при работе с базой данных: {e}")
+        logger.info(f"Ошибка при работе с базой данных: {e}")
 
     finally:
         conn.close()

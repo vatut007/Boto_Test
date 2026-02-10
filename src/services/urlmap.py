@@ -1,8 +1,11 @@
+import logging
 from sqlite3 import Connection
 import string
 from datetime import datetime
 from core.config import settings
 from schemas.urlmap import UrlMapRead
+
+logger = logging.getLogger(__name__)
 
 
 class URLMap():
@@ -25,7 +28,7 @@ class URLMap():
             short = self.encode_id(new_id)
             update_query = "UPDATE URLMap SET short = ? WHERE id = ?"
             cursor.execute(update_query, (short, new_id))
-            print(f"Создана ссылка: {short} → {original} (id={new_id})")
+            logger.info(f"Создана ссылка: {short} → {original} (id={new_id})")
             self.conn.commit()
             return UrlMapRead(short_link=f'{settings.base_domain}/{short}')
 
