@@ -23,14 +23,13 @@ def create_shorten(shorten: UrlMapCreate,
 def redirect_short_url(code: str,
                        session: Connection = Depends(get_db_session)):
     urlMap = URLMap(session)
-    (original_url) = urlMap.get_shorten(code)
-    print(original_url)
+    original_url = urlMap.get_shorten(code)
     if not original_url:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
             detail="Ссылка не найдена"
         )
     return RedirectResponse(
-        url=original_url,
-        status_code=HTTPStatus.MOVED_PERMANENTLY,
+        url=f'https://{original_url}',
+        status_code=HTTPStatus.TEMPORARY_REDIRECT,
     )

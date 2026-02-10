@@ -13,8 +13,8 @@ class URLMap():
         cursor = self.conn.cursor()
         get_query = "SELECT original FROM URLMap WHERE short=?"
         cursor.execute(get_query, (short,))
-        row: (str) | None = cursor.fetchone()
-        return row
+        row = cursor.fetchone()
+        return row[0] if row else None
 
     def create_shorten(self, original: str):
         cursor = self.conn.cursor()
