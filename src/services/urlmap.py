@@ -1,7 +1,7 @@
 from sqlite3 import Connection
 import string
 from datetime import datetime
-
+from core.config import settings
 from schemas.urlmap import UrlMapRead
 
 
@@ -27,7 +27,7 @@ class URLMap():
             cursor.execute(update_query, (short, new_id))
             print(f"Создана ссылка: {short} → {original} (id={new_id})")
             self.conn.commit()
-            return UrlMapRead(short_link=short)
+            return UrlMapRead(short_link=f'{settings.base_domain}/{short}')
 
     def encode_id(self, num: int,
                   alphabet: str = string.ascii_letters + string.digits,

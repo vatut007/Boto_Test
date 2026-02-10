@@ -15,7 +15,7 @@ def create_shorten(shorten: UrlMapCreate,
                    session: Connection = Depends(get_db_session),
                    ):
     urlMap = URLMap(session)
-    urlMap = urlMap.create_shorten(shorten.url)
+    urlMap = urlMap.create_shorten(str(shorten.url))
     return urlMap
 
 
@@ -30,6 +30,6 @@ def redirect_short_url(code: str,
             detail="Ссылка не найдена"
         )
     return RedirectResponse(
-        url=f'https://{original_url}',
+        url=original_url,
         status_code=HTTPStatus.TEMPORARY_REDIRECT,
     )
